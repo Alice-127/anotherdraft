@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Members | Darlington Lab</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <script src="nav.js"></script>
+  <script>renderNav('members.html')</script>
+  <div class="wrap">
+    <div class="card g">
+      <div class="g-edge"></div>
+      <h1>Lab Members</h1>
+      <div class="grid" id="members-grid" style="margin-top:24px;"></div>
+
+      <hr style="margin-top:40px;" />
+
+      <h2>Alumni</h2>
+      <ul class="alumni-list" id="alumni-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    fetch('data/members.json')
+      .then(r => r.json())
+      .then(data => {
+        // Current members → photo cards
+        const grid = document.getElementById('members-grid');
+        data.current.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'member-card';
+          card.innerHTML = `
+            <img src="${m.photo}" alt="${m.name}">
+            <h3>${m.name}</h3>
+            <p class="role">${m.role}</p>
+            <p class="field">${m.field}</p>
+          `;
+          grid.appendChild(card);
+        });
+
+        // Alumni → simple list, no photo
+        const list = document.getElementById('alumni-list');
+        data.alumni.forEach(a => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${a.name}</strong> — ${a.role}, ${a.field}`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>

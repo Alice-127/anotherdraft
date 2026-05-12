@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Darlington Lab</title>
+  <meta name="description"
+    content="Darlington Lab — immunology research at Concordia University's School of Health. We study how hormones and autonomic drugs regulate T cell function, using human cell lines and primary immune cells." />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .wrap {
+      padding-top: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  </style>
+</head>
+
+<script>
+  // card effect
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(24px)';
+    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    setTimeout(() => {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 100 + i * 120);
+  });
+</script>
+
+<body>
+
+  <div id="nav-placeholder"></div>
+  <script src="nav.js"></script>
+  <script>renderNav('index.html')</script>
+
+  <div class="wrap">
+
+    <div class="card g">
+      <div class="g-edge"></div>
+      <div class="sec-label">Concordia University · School of Health</div>
+      <h1>Darlington Lab</h1>
+      <p><strong>Principal Investigator:</strong> Dr. Peter Darlington</p>
+
+      <div style="margin-top:32px;">
+        <div class="sec-label">News</div>
+        <ul class="news-list" id="index-news"></ul>
+        <p style="margin-top:14px;"><a href="news.html">View all news →</a></p>
+      </div>
+    </div>
+
+    <div class="card g">
+      <div class="g-edge"></div>
+      <h2>Location</h2>
+      <div class="location-wrap">
+        <div class="map-box">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1399.3121478005976!2d-73.63801662219493!3d45.457226550811356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc9172decec617d%3A0xe875adb3de2d89b!2sConcordia%20University%20School%20of%20Health!5e0!3m2!1szh-CN!2sca!4v1771370919265!5m2!1szh-CN!2sca"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="addr-box">
+          <h3>Address</h3>
+          <p>7200 Rue Sherbrooke O,<br>Montréal, QC H4B 1R6</p>
+          <p><a href="https://www.google.com/maps?q=7200+Rue+Sherbrooke+O,+Montr%C3%A9al,+QC+H4B+1R6" target="_blank"
+              rel="noopener">View on Google Maps</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script>
+    fetch('data/news.json')
+      .then(r => r.json())
+      .then(items => {
+        const list = document.getElementById('index-news');
+        items.slice(0, 3).forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<span class="news-date">${item.date}</span><span class="news-text">${item.text}</span>`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+
+</html>

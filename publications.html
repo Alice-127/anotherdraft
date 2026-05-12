@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Publications | Darlington Lab</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <script src="nav.js"></script>
+  <script>renderNav('publications.html')</script>
+  <div class="wrap">
+    <div class="card g">
+      <div class="g-edge"></div>
+      <h1>Publications</h1>
+      <h2 id="pub-title" style="margin-top:10px;"></h2>
+      <div id="pub-container" style="margin-top:20px;"></div>
+    </div>
+  </div>
+
+  <script>
+    fetch('data/publications.json')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('pub-title').textContent = data.label;
+
+        const container = document.getElementById('pub-container');
+        container.innerHTML = '';
+
+        const list = document.createElement('ul');
+        list.className = 'pub-list';
+
+        data.entries.forEach(pub => {
+          const li = document.createElement('li');
+
+          const doiLink = pub.doi
+            ? ` <a href="${pub.doi}" target="_blank" rel="noopener">DOI</a>`
+            : '';
+
+          const status = pub.journal + '. ' + pub.year + '.';
+
+          li.innerHTML = `${pub.authors} <em>${pub.title}</em> ${status}${doiLink}`;
+          list.appendChild(li);
+        });
+
+        container.appendChild(list);
+      });
+  </script>
+</body>
+
+</html>

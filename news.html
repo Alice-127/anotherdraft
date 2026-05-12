@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>News | Darlington Lab</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <script src="nav.js"></script>
+  <script>renderNav('news.html')</script>
+  <div class="wrap">
+    <div class="card g">
+      <div class="g-edge"></div>
+      <h1>News</h1>
+      <ul class="news-list" id="news-list" style="margin-top:24px;"></ul>
+    </div>
+  </div>
+
+  <script>
+    fetch('data/news.json')
+      .then(r => r.json())
+      .then(items => {
+        const list = document.getElementById('news-list');
+        items.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span class="news-date">${item.date}</span>
+            <span class="news-text">${item.text}</span>
+          `;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
