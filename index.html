@@ -21,20 +21,6 @@
   </style>
 </head>
 
-<script>
-  // card effect
-  const cards = document.querySelectorAll('.card');
-  cards.forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(24px)';
-    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    setTimeout(() => {
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
-    }, 100 + i * 120);
-  });
-</script>
-
 <body>
 
   <div id="nav-placeholder"></div>
@@ -87,6 +73,18 @@
         });
       });
   </script>
+  <script>
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(48px)';
+    card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    setTimeout(() => {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 200 + i * 200);
+  });
+</script>
 </body>
 
 </html>
